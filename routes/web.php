@@ -13,6 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', function () {
+        return redirect('web/dashboard');
+    });
+
+    Route::get('/web/dashboard', \App\View\Web\Dashboard::class);
+    Route::get('/web/articles', \App\View\Web\Articles::class);
+    Route::get('/web/pages', \App\View\Web\Pages::class);
+    Route::get('/web/events', \App\View\Web\Events::class);
+    Route::get('/web/web-content', \App\View\Web\WebContent::class);
+    Route::get('/web/settings/{page}', \App\View\Web\Settings::class);
+
+    Route::get('/eshop/dashboard', \App\View\Eshop\Dashboard::class);
+    Route::get('/eshop/orders', \App\View\Eshop\Orders::class);
+    Route::get('/eshop/products', \App\View\Eshop\Products::class);
+    Route::get('/eshop/carts', \App\View\Eshop\Carts::class);
+    Route::get('/eshop/settings/{page}', \App\View\Eshop\Settings::class);
+
+    Route::get('/{section}/{parent}s/{method}/{uid?}', \App\View\Form\RecordForm::class);
+ 
+    Route::get('invoice/generate/{id}', [\App\Http\Controllers\InvoiceController::class, 'generate']);
 });
+
+Route::get('invoice/show/{id}', [\App\Http\Controllers\InvoiceController::class, 'show']);
+
+require __DIR__.'/auth.php';

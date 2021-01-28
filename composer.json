@@ -12,13 +12,18 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
+        "laravel/telescope": "^4.3",
+        "laravel/tinker": "^2.5",
+        "laraveldaily/laravel-invoices": "^2.0",
+        "livewire/livewire": "^2.3.6"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "laravel/sail": "^1.0.1",
+        "laravel/breeze": "^0.1.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
@@ -38,7 +43,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/option.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
