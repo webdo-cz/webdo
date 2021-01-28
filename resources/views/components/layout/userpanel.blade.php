@@ -5,7 +5,7 @@
         </span>
         <div class="ml-3">
             <p class="text-sm font-medium leading-5 text-gray-700 group-hover:text-gray-900">
-                Ondřej Štěpán
+                {{ Auth::user()->name }}
             </p>
             <form method="POST" action="{{ url('logout') }}" class="flex text-xs leading-4 text-gray-500 transition duration-150 ease-in-out">
                 @csrf
