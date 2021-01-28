@@ -4,7 +4,7 @@
     </x-layout.page-title>
     
     <div class="flex space-x-4">
-        @if(config('option.module_posts') == 'true') 
+        @if(config('option.module_articles') == 'true') 
         <div class="flex w-1/4 p-4 bg-white">
             <div class="text-light-blue-200">
                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
