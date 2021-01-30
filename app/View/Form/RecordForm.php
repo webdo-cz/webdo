@@ -201,17 +201,19 @@ class RecordForm extends Component
 
             $this->state['terms'] = $state->terms->pluck('id')->toArray();
 
-            $variantForm = $state->variants->first();
-            if($variantForm->name != "one-variant") {
-                $this->oneVariant = false;
-                $this->state['variants']['prev'] = $state->variants->toArray();
+            if ($this->parent == 'product') {
+                $variantForm = $state->variants->first();
+                if($variantForm->name != "one-variant") {
+                    $this->oneVariant = false;
+                    $this->state['variants']['prev'] = $state->variants->toArray();
+                }
+    
+                $this->variantForm['price'] = $variantForm->price_include_VAT;
+                $this->variantForm['vat'] = $variantForm->VAT_rate;
+                $this->variantForm['weight'] = $variantForm->weight;
+                $this->variantForm['availability'] = $variantForm->availability;
+                $this->variantForm['availabilityE'] = $variantForm->availability_empty;
             }
-
-            $this->variantForm['price'] = $variantForm->price_include_VAT;
-            $this->variantForm['vat'] = $variantForm->VAT_rate;
-            $this->variantForm['weight'] = $variantForm->weight;
-            $this->variantForm['availability'] = $variantForm->availability;
-            $this->variantForm['availabilityE'] = $variantForm->availability_empty;
         }else {
             $this->state['id'] = strtoupper(Str::random(4)) . str_shuffle(date("jmi"));
             $this->state['gallery'] = [
