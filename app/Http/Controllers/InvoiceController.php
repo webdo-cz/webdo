@@ -62,7 +62,7 @@ class InvoiceController extends Controller
 
     public function generate($orderId)
     {
-        $latest = Invoice::whereYear('created_at', '=', date('y'))->orderBy('created_at', 'desc')->pluck('number')->first();
+        $latest = Invoice::whereYear('created_at', '=', date('Y'))->orderBy('created_at', 'desc')->pluck('number')->first();
         if(!$latest) {
             $latest = date('y') * 1000000;
         }
