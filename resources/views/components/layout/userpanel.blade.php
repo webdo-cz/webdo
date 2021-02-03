@@ -9,7 +9,7 @@
             </p>
             <form method="POST" action="{{ url('logout') }}" class="flex text-xs leading-4 text-gray-500 transition duration-150 ease-in-out">
                 @csrf
-                <a href="#" class="pr-2 font-medium hover:text-gray-700">{{ __('layout.userpanel.settings') }}</a>
+                <a href="{{ url('web/user-profile') }}" class="pr-2 font-medium hover:text-gray-700">{{ __('layout.userpanel.settings') }}</a>
                 <button class="font-medium hover:text-gray-700" onclick="event.preventDefault();this.closest('form').submit();">{{ __('layout.userpanel.logout') }}</button>
             </form>
         </div>
