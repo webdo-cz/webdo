@@ -7,6 +7,7 @@ return [
         'web-articles' => 'Příspěvky',
         'web-pages' => 'Stránky',
         'web-events' => 'Události',
+        'web-users' => 'Uživatelé',
         'web-content' => 'Texty stránek',
         'web-settings' => 'Nastavení',
         'eshop-dashboard' => 'Nástěnka',
