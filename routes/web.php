@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/web/settings/{page}', \App\View\Web\Settings::class);
 
     Route::get('/web/users', \App\View\User\Users::class);
+    Route::get('/web/user-profile', \App\View\User\Profile::class);
 
     Route::get('/eshop/dashboard', \App\View\Eshop\Dashboard::class);
     Route::get('/eshop/orders', \App\View\Eshop\Orders::class);
