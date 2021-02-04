@@ -34,6 +34,8 @@
             </main>
         </div>
 
+        <livewire:flash-messages />
+
         <!-- Scripts -->
         @livewireScripts
         <script src="{{ mix('js/app.js') }}"></script>

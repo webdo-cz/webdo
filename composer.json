@@ -17,7 +17,8 @@
         "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.5",
         "laraveldaily/laravel-invoices": "^2.0",
-        "livewire/livewire": "^2.3.6"
+        "livewire/livewire": "^2.3.6",
+        "webdo-cz/livewire-flash": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
