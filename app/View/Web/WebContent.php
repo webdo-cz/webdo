@@ -33,7 +33,16 @@ class WebContent extends Component
                 }
             }
         }
-        return redirect('web/dashboard');
+
+        $flash = [
+            'type' => 'success',
+            'title' => 'Texty upraveny',
+            'message' => 'Úpravy byly úspěšně uloženy do databáze',
+        ];
+        
+        flash($flash, $this);
+
+        return redirect('web/web-content');
     }
 
     public function back() {
