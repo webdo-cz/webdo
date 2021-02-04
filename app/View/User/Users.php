@@ -22,6 +22,14 @@ class Users extends Component
         $this->user = null;
         $this->confirmUserDelete = false;
         $this->users = User::orderBy('created_at', 'desc')->get();
+
+        $flash = [
+            'type' => 'success',
+            'title' => 'Uživatel odstraněn',
+            'message' => 'Uživatel byl kompletně vymazán z naší databáze.',
+        ];
+        
+        flash($flash, $this);
     }
 
     public function showUser($id)
