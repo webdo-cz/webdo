@@ -1,4 +1,4 @@
-<div class="min-h-screen font-sans antialiased bg-gray-100">
+<div x-data="{ open: false }" class="min-h-screen font-sans antialiased bg-gray-100">
     @include('components.layout.loading')
     <div class="absolute inset-0 h-screen overflow-auto">
         <iframe src="{{ config('option.frontend_url') }}" class="w-full h-full p-0 m-0 overflow-hidden bg-white border-0" scrolling="yes">
@@ -68,6 +68,10 @@
                     @include('web.content._text')
             @endswitch
         @endforeach
+        <div @click="open = true" class="mt-6 border py-4 px-6 leading-7 hover:border-transparent hover:bg-gray-50 cursor-pointer text-gray-400 hover:text-light-blue-500">
+            <p class="font-semibold text-center text-sm">Vytvořit nový blok</p>
+        </div>
     </form>
+    @include('web.content._addmodal')
 </div>
   
