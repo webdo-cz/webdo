@@ -32,6 +32,14 @@ class CreateUser extends Component
 
         Mail::to($this->state['email'])->send(new UserWelcome($password));
 
+        $flash = [
+            'type' => 'success',
+            'title' => 'Uživatel vytvořen',
+            'message' => 'Uživatelský účet byl vytvořen.',
+        ];
+        
+        flash($flash);
+
         return redirect()->to('web/users');
     }
     public function render()
