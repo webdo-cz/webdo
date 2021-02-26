@@ -18,26 +18,28 @@
         <script src="https://npmcdn.com/flatpickr/dist/l10n/cs.js"></script>
         <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 sm:flex sm:flex-row">
-            @if(!isset($hideSidebar))
-                <x-layout.sidebar/>
-            @endif
-
-            <main class="w-full">
-                {{-- <div class="flex items-center justify-between w-full max-w-5xl px-6 mx-auto my-10 sm:py-6">
-                    
-                </div> --}}
-                <div class="w-full max-w-5xl p-6 mx-auto">
-                    {{ $slot }}
-                </div>
-            </main>
-        </div>
-
+    <body class="font-sans antialiased bg-gray-100">
         <livewire:flash-messages />
+        @if(isset($fullscreen))
+            {{ $slot }}
+        @else
+            <div class="min-h-screen sm:flex sm:flex-row">
+                @if(!isset($hideSidebar))
+                    <x-layout.sidebar/>
+                @endif
+                <main class="w-full">
+                    {{-- <div class="flex items-center justify-between w-full max-w-5xl px-6 mx-auto my-10 sm:py-6">
 
+                    </div> --}}
+                    <div class="w-full max-w-5xl p-6 mx-auto">
+                        {{ $slot }}
+                    </div>
+                </main>
+            </div>
+        @endif
         <!-- Scripts -->
         @livewireScripts
         <script src="{{ mix('js/app.js') }}"></script>
+        <x-laravel-blade-sortable::scripts/>
     </body>
 </html>

@@ -13,15 +13,18 @@ class CreateContentTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('content');
+        
         Schema::create('content', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('label');
-            $table->string('value');
-            $table->string('page')->default('index');
+            $table->string('name')->nullable();
+            $table->string('label')->nullable();
+            $table->longText('value')->nullable();
+            $table->string('page')->nullable();
             $table->string('type')->nullable();
-            $table->bigInteger('group')->nullable();
+            $table->bigInteger('parent_id')->nullable();
             $table->bigInteger('order')->nullable();
+            $table->string('status')->default('production');
             $table->timestamps();
         });
     }
@@ -34,5 +37,6 @@ class CreateContentTable extends Migration
     public function down()
     {
         Schema::dropIfExists('content');
+        $table->dropNestedSet();
     }
 }

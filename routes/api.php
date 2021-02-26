@@ -31,3 +31,5 @@ Route::post('order/fill', [\App\Http\Controllers\Api\OrderController::class, 'fi
 Route::post('order/submit', [\App\Http\Controllers\Api\OrderController::class, 'submit']);
 
 Route::get('content/page/{name}', [\App\Http\Controllers\Api\ContentController::class, 'page']);
+
+Route::get('page/{name}', [\App\Http\Controllers\Api\PageController::class, 'page']);
