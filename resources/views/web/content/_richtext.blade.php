@@ -89,7 +89,7 @@
     </div>
     <div class="w-full px-6 py-4 text-sm text-gray-400">
         @if(isset($state[$item]['value'][$lang]))
-        
+            {!! substr(strip_tags(html_entity_decode($state[$item]['value'][$lang],   ENT_QUOTES, 'UTF-8')), 0, 100) !!}...
         @endif
     </div>
 </div>
