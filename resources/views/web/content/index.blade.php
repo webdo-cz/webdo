@@ -1,4 +1,5 @@
 <div class="flex">
+    @include('web.content.modal')
     <div class="flex-none h-screen px-4 py-6 overflow-auto bg-white border-r w-80" x-data="{ developer: false }">
         <div>
             @if($confirmDelete)
@@ -163,7 +164,7 @@
                                 </svg>
                             </div>
                             <input 
-                                wire:model.defer="state.{{ $item }}.label" 
+                                wire:model.lazy="state.{{ $item }}.label" 
                                 type="text" 
                                 class="w-full px-4 py-2 text-sm border-b bg-gray-50 focus:outline-none focus:border-light-blue-300" 
                                 placeholder="Popisek" 
