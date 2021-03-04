@@ -9,11 +9,18 @@ use App\Actions\ContentSortHandle;
 use App\Actions\ContentRecordService;
 use App\Actions\ContentSubmitForm;
 
+use Livewire\WithFileUploads;
 use Livewire\Component;
 
 class ContentForm extends Component
 {
     use ContentSortHandle, ContentRecordService, ContentSubmitForm;
+    use WithFileUploads;
+
+    public $modal = [
+        'id' => null,
+        'type' => null,
+    ];
 
     public $confirmDelete = null;
     public $developer = false;
@@ -26,6 +33,10 @@ class ContentForm extends Component
     public $parent;
 
     public $add = ['open' => false, 'type' => null];
+
+    public function uploadImage($id, $file, $load, $error, $progress) {
+        $this->upload('state.' . $id . '.upload.'. $this->lang, $file, $load, $error, $progress);
+    }
 
     public function back() {
         $id = $this->state[$this->parent]['parent_id'];

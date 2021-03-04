@@ -10,6 +10,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @livewireStyles
 
@@ -17,6 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script src="https://npmcdn.com/flatpickr/dist/l10n/cs.js"></script>
         <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     </head>
     <body class="font-sans antialiased bg-gray-100">
         <livewire:flash-messages />

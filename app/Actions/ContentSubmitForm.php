@@ -3,6 +3,8 @@
 namespace App\Actions;
 
 use App\Models\Content;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Facades\Image;
 
 trait ContentSubmitForm
 {
@@ -26,8 +28,43 @@ trait ContentSubmitForm
         $diff = array_diff($prev, $new);
 
         foreach($this->state as $key => $record) {
+
+            if(isset($record['delete'])) {
+                foreach($record['delete'] as $lang => $condition) {
+                    if($condition && file_exists(storage_path('app/public/files/' . $record['value'][$lang]))) {
+                        unlink(storage_path('app/public/files/' . $record['value'][$lang]));
+                        $record['value'][$lang] = null;
+                    }
+                    
+                }
+            }
+
+            if(isset($record['upload'])) {
+                foreach($record['upload'] as $lang => $image) {
+                    if(!is_dir(storage_path() . '/app/public/files/content/images/')) {
+                        mkdir(storage_path() . '/app/public/files/content/images/', 0777, true);
+                    }
+    
+                    if(isset($record['value'][$lang]) && $record['value'][$lang] && file_exists('app/public/files/' . $record['value'][$lang])) {
+                        unlink(storage_path('app/public/files/' . $record['value'][$lang]));
+                    }
+    
+                    if(isset($record['filename'])) {
+                        $filename = $record['filename'];
+                    }else {
+                        $filename = $record['id'] . date('md') . mt_rand(10, 99) . str_shuffle(date("jHi")) . '.jpg';
+                    }
+    
+                    $path = 'content/images/' . $filename;
+            
+                    Image::make($image)->encode('jpg', 75)->save(storage_path('app/public/files/' . $path));
+
+                    $record['value'][$lang] = $path;
+                }
+            }
+
             if($state->find($key)) {
-                $state->find($key)->setLocale('cs')->update([
+                $state->find($key)->update([
                     'label' => $record['label'],
                     'value' => $record['value'],
                     'order' => $record['order'],
@@ -45,7 +82,6 @@ trait ContentSubmitForm
                     'status' => 'production',
                 ]);
             }
-            
         }
 
         foreach($diff as $id) {

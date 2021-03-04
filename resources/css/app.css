@@ -142,3 +142,11 @@
     border-radius: 8px;
     height: 16rem;
 }
+
+.filepond--drop-label, .filepond--panel-root {
+    @apply rounded-lg bg-blue-gray-100 !important;
+}
+
+.filepond--item-panel {
+    @apply bg-light-blue-400 !important;
+}
