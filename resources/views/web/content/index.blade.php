@@ -170,7 +170,18 @@
                                                 wire:click="showGroup('{{ $children['id'] }}')"
                                                 class="block w-full px-4 py-2 font-semibold truncate bg-white cursor-pointer text-light-blue-500 hover:text-light-blue-800"
                                             >
-                                                {{ $children['label'] }}
+                                                @if(substr( $children['label'], 0, 1 ) == "!")
+                                                    @php
+                                                        $label = collect($state[$children['id']]['children'])->where('name', substr( $children['label'], 1, 255 ))->first();
+                                                    @endphp
+                                                    @if($label && isset($label['value'][$lang]))
+                                                        {{ $label['value'][$lang] }}
+                                                    @else
+                                                        {{ $key+1 }}
+                                                    @endif
+                                                @else
+                                                    {{ $children['label'] }}
+                                                @endif
                                             </div>
                                             <div wire:click="$set('confirmDelete', '{{ $children['id'] }}')" class="flex items-center justify-center w-12 text-red-400 bg-red-100 border-l border-red-200 h-9 rounded-r-xl hover:text-red-600">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
