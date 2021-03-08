@@ -27,32 +27,6 @@
                 </div>
             @endif
         </div>
-        <script>
-            function closeModal(id, source) {
-                var value = null;
-                if(source == 'html') {
-                    value = document.querySelector("#html-" + id).value;
-                }
-                if(source == 'markdown') {
-                    value = document.querySelector("#editor-" + id + " > div").innerHTML;
-                }
-                @this.set('state.' + id + '.value.{{ $lang }}', value, true);
-                @this.set('state.' + id + '.opened', true);
-            }
-            function setHTML(id) {
-                document.querySelector("#html-" + id).value = document.querySelector("#editor-" + id + " > div").innerHTML;
-            }
-            function setEditor(id) {
-                document.querySelector("#editor-" + id + " > div").innerHTML = document.querySelector("#html-" + id).value;
-            }
-            var toolbarOptions = [
-                [{ 'header': [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-
-                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                [{ 'align': [] }],
-            ];
-        </script>
         <div class="flex items-center justify-between pb-6 border-b">
             @if($parent && $parent != $group)
                 <div class="flex items-center">

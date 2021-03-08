@@ -14,8 +14,7 @@
         @endif
         <div class="flex items-center justify-center w-full py-4">
             <button
-                wire:click="$set('modal.id', '{{ $item }}')"
-                wire:click="$set('modal.type', 'image')"
+                wire:click="openModal({{ $item }})"
                 type="button"
                 class="z-10 -mr-5 bg-white shadow cursor-pointer btn text-light-blue-500 hover:text-light-blue-800"
             >

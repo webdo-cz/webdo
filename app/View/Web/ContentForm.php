@@ -20,6 +20,7 @@ class ContentForm extends Component
     public $modal = [
         'id' => null,
         'type' => null,
+        'value' => false,
     ];
 
     public $confirmDelete = null;
@@ -33,6 +34,23 @@ class ContentForm extends Component
     public $parent;
 
     public $add = ['open' => false, 'type' => null];
+
+    public function closeModal() {
+        $this->modal = [
+            'id' => null,
+            'type' => null,
+            'value' => false,
+        ];
+    }
+
+    public function openModal($id) {
+        $modal = $this->state[$id];
+        $this->modal = [
+            'id' => $modal['id'],
+            'type' => $modal['type'],
+            'value' => isset($modal['value'][$this->lang]) ? $modal['value'][$this->lang] : null,
+        ];
+    }
 
     public function uploadImage($id, $file, $load, $error, $progress) {
         $this->upload('state.' . $id . '.upload.'. $this->lang, $file, $load, $error, $progress);
