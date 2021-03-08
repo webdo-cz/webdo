@@ -1,6 +1,18 @@
-<input 
+<textarea
     wire:model.defer="state.{{ $item }}.value.{{ $lang }}" 
-    type="text" 
-    class="w-full px-4 py-2 text-sm border-b bg-gray-50 focus:outline-none focus:border-light-blue-300" 
-    placeholder="{{ $state[$item]['label'] }}" 
-/>  
+    class="w-full h-10 px-4 py-2 text-sm border-b bg-gray-50 focus:outline-none focus:border-light-blue-300" 
+    placeholder="{{ $state[$item]['label'] }}"
+    x-data="{
+        resize() {
+            $el.style.height = '40px';
+            if($el.scrollHeight < 40) {
+                $el.style.height = '40px';
+            }else {
+                $el.style.height = $el.scrollHeight + 'px';
+            }
+            
+        }
+    }"
+    x-init="resize"
+    @input="resize"
+></textarea> 
