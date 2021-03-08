@@ -89,9 +89,11 @@
         <div x-show="!developer">
             @foreach ($form as $key => $item)
                 <div class="mb-4">
-                    <p class="px-4 pt-1 mb-1 text-xs">
-                        {{ $state[$item]['label'] ? $state[$item]['label'] : $state[$item]['name'] }}
-                    </p>
+                    @if($state[$item]['type'] != 'title')
+                        <p class="px-4 pt-1 mb-1 text-xs">
+                            {{ $state[$item]['label'] ? $state[$item]['label'] : $state[$item]['name'] }}
+                        </p>
+                    @endif
                     @switch($state[$item]['type'])
                         @case('html')
                             @include('web.content._html')
@@ -99,8 +101,8 @@
                         @case('richtext')
                             @include('web.content._richtext')
                             @break
-                        @case('textarea')
-                            @include('web.content._textarea')
+                        @case('title')
+                            @include('web.content._title')
                             @break
                         @case('image')
                             @include('web.content._image')
