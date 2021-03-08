@@ -15,8 +15,8 @@
                                 </div>
                             </div>
                             <div class="flex-grow text-gray-700">
-                                <p class="font-bold">Odstranit uživatele</p>
-                                <p class="text-sm">Opravdu chcete uživatele odstranit? Nebude ho již možno nijak obnovit.</p>
+                                <p class="font-bold">Odstranit blok?</p>
+                                <p class="text-sm">Opravdu chcete tento blok odstranit? Po uložení ho nebude již možno nijak obnovit.</p>
                             </div>
                         </div>
                         <div class="flex items-center justify-end px-6 py-2 space-x-2 text-sm">
