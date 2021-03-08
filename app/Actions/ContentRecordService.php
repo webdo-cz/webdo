@@ -31,20 +31,17 @@ trait ContentRecordService
             'page' => $this->page,
             'order' => null,
             'parent_id' => (int)$parent_id,
+            'status' => 'temp'
         ];
 
-        if(isset($this->add['parent_id']) || $this->add['type'] == 'list') {
-            $record['status'] = 'temp';
-            $record = Content::create($record);
-            $record = $record->toArray();
-            $record['children'] = [];
-            if(isset($this->add['parent_id'])) {
-                array_push($this->state[$parent_id]['children'], $record);
-            }
-            $this->state[$record['id']] = $record;
-        }else {
-            array_push($this->state, $record);
+        $record = Content::create($record);
+        $record = $record->toArray();
+        $record['children'] = [];
+
+        if(isset($this->add['parent_id'])) {
+            array_push($this->state[$parent_id]['children'], $record);
         }
+        $this->state[$record['id']] = $record;
 
         foreach($this->state as $key => $item) {
             if(!isset($item['id'])) {
