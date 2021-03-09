@@ -89,5 +89,13 @@ trait ContentSubmitForm
         }
 
         $this->dispatchBrowserEvent('submitted');
+
+        $flash = [
+            'type' => 'success',
+            'title' => 'Obsah byl uložen!',
+            'message' => 'Úpravy obsahu byly uloženy.',
+        ];
+        
+        flash($flash, $this);
     }
 }

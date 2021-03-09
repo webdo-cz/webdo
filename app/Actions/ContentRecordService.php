@@ -52,6 +52,14 @@ trait ContentRecordService
         $this->showGroup($this->parent);
 
         $this->add = ['open' => false, 'type' => null];
+
+        $flash = [
+            'type' => 'success',
+            'title' => 'Element byl přidán!',
+            'message' => 'Nový element byl úspěšně přidán.',
+        ];
+        
+        flash($flash, $this);
     }
 
     public function delete($item)
@@ -67,5 +75,13 @@ trait ContentRecordService
         unset($this->state[$item]);
         $this->confirmDelete = null;
         $this->showGroup($this->parent);
+
+        $flash = [
+            'type' => 'success',
+            'title' => 'Element byl smazán!',
+            'message' => 'Nový element byl úspěšně smazán.',
+        ];
+        
+        flash($flash, $this);
     }
 }
