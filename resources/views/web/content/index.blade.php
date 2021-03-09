@@ -212,8 +212,14 @@
         </div>
     </div>
     <div class="flex-grow">
-        <iframe src="{{ config('option.frontend_url') }}" class="w-full h-full p-0 m-0 overflow-hidden bg-white border-0" scrolling="yes">
+        <iframe id="iframe" src="{{ $iframe }}" class="w-full h-full p-0 m-0 overflow-hidden bg-white border-0" scrolling="yes">
             Your browser doesn't support iframes
         </iframe>
     </div>
+    <script>
+        window.addEventListener('submitted', event => {
+            var iframe = document.getElementById('iframe');
+            iframe.src = iframe.src;
+        })
+    </script>
 </div>

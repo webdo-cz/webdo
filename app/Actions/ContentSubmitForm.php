@@ -88,6 +88,6 @@ trait ContentSubmitForm
             $state->find($id)->delete();
         }
 
-        dd('done');
+        $this->dispatchBrowserEvent('submitted');
     }
 }

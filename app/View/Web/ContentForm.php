@@ -17,6 +17,8 @@ class ContentForm extends Component
     use ContentSortHandle, ContentRecordService, ContentSubmitForm;
     use WithFileUploads;
 
+    public $iframe = null;
+
     public $modal = [
         'id' => null,
         'type' => null,
@@ -70,6 +72,7 @@ class ContentForm extends Component
 
     public function mount()
     {
+        $this->iframe = config('option.frontend_url');
         if(request()->lang) $this->lang = request()->lang;
 
         $state = Content::usingLocale($this->lang)->where('status', 'production');
