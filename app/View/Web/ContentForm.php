@@ -25,7 +25,9 @@ class ContentForm extends Component
         'value' => false,
     ];
 
+    public $confirmClose = null;
     public $confirmDelete = null;
+    
     public $developer = false;
 
     public $lang = 'cs';

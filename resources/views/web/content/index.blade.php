@@ -1,14 +1,38 @@
 <div class="flex">
     @include('web.content.modal')
     <div class="flex-none h-screen px-4 py-6 overflow-auto bg-white border-r w-80" x-data="{ developer: false }">
-        <div>
+        <div wire:key="confirmCloseModal">
+            @if($confirmClose)
+                <div class="fixed inset-0 z-50 w-full min-h-screen px-8 py-3 bg-opacity-50 bg-blue-gray-800 sm:bottom-auto">
+                    <div class="shadow-lg bg-blue-gray-100 rounded-3xl sm:max-w-xl sm:mx-auto">
+                        <div class="flex items-center px-3 py-3 bg-white shadow-sm sm:px-6 rounded-3xl">
+                            <div class="mr-3 sm:mr-5">
+                                <div class="flex items-center justify-center w-10 h-10 text-red-500 bg-red-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-grow text-gray-700">
+                                <p class="font-bold">Zavřít editor?</p>
+                                <p class="text-sm">Pokud máte nějaké neuložené změny budou ztraceny.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-end px-6 py-2 space-x-2 text-sm">
+                            <button wire:click="$set('confirmClose', false, true)" class="px-4 py-2 font-semibold text-gray-600 hover:bg-blue-gray-200 rounded-xl ">Zůstat</button>
+                            <a href="{{ url('web/pages') }}" class="px-4 py-2 font-semibold text-white bg-red-500 hover:bg-red-600 rounded-xl">Zavřít</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        <div wire:key="confirmDeleteModal">
             @if($confirmDelete)
                 <div class="fixed inset-0 z-50 w-full min-h-screen px-8 py-3 bg-opacity-50 bg-blue-gray-800 sm:bottom-auto">
                     <div class="shadow-lg bg-blue-gray-100 rounded-3xl sm:max-w-xl sm:mx-auto">
                         <div class="flex items-center px-3 py-3 bg-white shadow-sm sm:px-6 rounded-3xl">
                             <div class="mr-3 sm:mr-5">
                                 <div class="flex items-center justify-center w-10 h-10 text-red-500 bg-red-100 rounded-full">
-
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                     </svg>
@@ -20,7 +44,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-end px-6 py-2 space-x-2 text-sm">
-                            <button wire:click="$set('confirmDelete', null)" class="px-4 py-2 font-semibold text-gray-600 hover:bg-blue-gray-200 rounded-xl ">Zrušit</button>
+                            <button wire:click="$set('confirmDelete', null, true)" class="px-4 py-2 font-semibold text-gray-600 hover:bg-blue-gray-200 rounded-xl ">Zrušit</button>
                             <button wire:click="delete({{ $confirmDelete }})" class="px-4 py-2 font-semibold text-white bg-red-500 hover:bg-red-600 rounded-xl">Odstranit</button>
                         </div>
                     </div>
@@ -39,11 +63,11 @@
                 </div>
             @else
                 <div class="flex items-center">
-                    <a href="{{ url('web/pages') }}" class="p-2 border rounded-xl hover:text-light-blue-400">
+                    <button wire:click="$set('confirmClose', true, true)" type="button" class="p-2 border rounded-xl hover:text-light-blue-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
-                    </a>
+                    </button>
                     <p class="ml-4 font-bold">Úprava textů</p>
                 </div>
                 <button wire:click="submit" type="button" class="shadow-sm btn-primary">
@@ -53,10 +77,7 @@
         </div>
         <div class="flex items-center justify-between mb-6 border-b">
             <div x-data="{ open: false, lang: @entangle('lang') }" class="relative px-4 py-3 border-r">
-                <div @click="open = !open" class="text-sm">
-                    
-                </div>
-                <button type="button" @click="open = !open" class="flex items-center text-sm text-gray-400 hover:text-gray-600">
+                <button @click="open = !open" type="button" class="flex items-center text-sm text-gray-400 hover:text-gray-600">
                     <img x-show="lang == 'cs'" class="h-6 mr-2" src="{{ asset('img/icons/cs.svg') }}">
                     <img x-show="lang == 'sk'" class="h-6 mr-2" src="{{ asset('img/icons/sk.svg') }}" style="display: none">
                     <img x-show="lang == 'en'" class="h-6 mr-2" src="{{ asset('img/icons/en.svg') }}" style="display: none">
