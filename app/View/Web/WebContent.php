@@ -45,6 +45,19 @@ class WebContent extends Component
         return redirect('web/web-content');
     }
 
+    /**
+     * Creates new Content with given type and adds it to the base[].
+     *
+     * @param string $type
+     * @return void
+     */
+    public function createNewRecord($type) {
+        $content = new Content();
+        $content->type = $type;
+        $content->save();
+        $this->base[] = $content;
+    }
+
     public function back() {
         $this->group = null;
         $this->form = $this->base;

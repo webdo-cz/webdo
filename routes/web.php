@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/web/events', \App\View\Web\Events::class);
     Route::get('/web/web-content', \App\View\Web\WebContent::class);
     Route::get('/web/settings/{page}', \App\View\Web\Settings::class);
+  
+    Route::get('/web/page/{page}/{lang?}', \App\View\Web\ContentForm::class);
+    Route::get('/web/content/{group}/{lang?}', \App\View\Web\ContentForm::class);
 
     Route::get('/web/users', \App\View\User\Users::class);
     Route::get('/web/user-profile', \App\View\User\Profile::class);
