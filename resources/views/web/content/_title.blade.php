@@ -1,3 +1,9 @@
 <div class="px-1 text-xl font-semibold">
-    {{ $state[$item]['value'][$lang] }}
+    @if(isset($state[$item]['value'][$lang]))
+        {{ $state[$item]['value'][$lang] }}
+    @elseif(isset($state[$item]['value']['cs']))
+        {{ $state[$item]['value']['cs'] }}
+    @else
+        {{ $state[$item]['name'] }}
+    @endif
 </div>
