@@ -110,7 +110,7 @@
     @endif
     <div class="mb-4 bg-white">
         @foreach($users as $key => $user)
-            <div wire:click="showUser({{ $user->id }})" class="flex {{ $loop->first ? '' : 'border-t' }}">
+            <div wire:key="{{ $user->id }}" wire:click="showUser({{ $user->id }})" class="flex {{ $loop->first ? '' : 'border-t' }}">
                 <div class="flex flex-col justify-between flex-grow w-2/3 px-4 py-4 text-sm font-medium leading-5 transition duration-200 cursor-pointer md:items-center md:flex-row sm:px-6 hover:bg-light-blue-500 hover:text-white">
                     <div class="flex items-center">
                         <div class="hidden w-4 mr-6 text-base text-center sm:block">
