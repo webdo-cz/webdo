@@ -46,7 +46,7 @@ class Orders extends Component
 
     public function mount()
     {
-        $this->orders = Order::where('cart', '0')->orderBy('created_at', 'desc')->get();
+        $this->orders = Order::where('cart', '0')->orderBy('submited_at', 'desc')->get();
     }
 
     public function render()

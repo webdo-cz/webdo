@@ -58,6 +58,7 @@ class OrderController extends Controller
 
         $this->order->status = "waiting-for-packing";
         $this->order->cart = 0;
+        $this->order->submited_at = now();
 
         $items = OrderItem::where('order_id', $this->order->id)->get();
         $total = 0;
