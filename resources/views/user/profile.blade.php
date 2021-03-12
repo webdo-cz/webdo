@@ -1,7 +1,7 @@
 <div>
-    <x-layout.page-title>
-        <h1>Nastavení - <span class="text-light-blue-500">{{ $user->name }}</span></h1>
-    </x-layout.page-title>
+    @section('title')
+        Nastavení - <span class="text-light-blue-500">{{ $user->name }}</span>
+    @endsection
     <div>
         <div class="max-w-lg mx-auto">
             <h2 class="px-4 mb-2 text-lg font-bold">Změna hesla</h2>

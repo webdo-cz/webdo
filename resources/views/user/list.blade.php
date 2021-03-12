@@ -1,6 +1,9 @@
 <div x-data="{ open: false }">
+    @section('title')
+        {{ __('web/users.title') }}
+    @endsection
     <x-layout.page-title>
-        <h1>{{ __('web/users.title') }}</h1>
+        <div></div>
         <div class="flex space-x-3">
             <button @click="open = true" type="button" class="btn-primary">
                 Přidat uživatele
@@ -108,23 +111,26 @@
         </div>
     </div>
     @endif
-    <div class="mb-4 bg-white">
+    <div class="space-y-3">
         @foreach($users as $key => $user)
-            <div wire:key="{{ $user->id }}" wire:click="showUser({{ $user->id }})" class="flex {{ $loop->first ? '' : 'border-t' }}">
-                <div class="flex flex-col justify-between flex-grow w-2/3 px-4 py-4 text-sm font-medium leading-5 transition duration-200 cursor-pointer md:items-center md:flex-row sm:px-6 hover:bg-light-blue-500 hover:text-white">
+            <div wire:key="{{ $user->id }}" class="flex {{ $loop->first ? '' : '' }}">
+                <div class="flex flex-col justify-between flex-grow w-2/3 px-4 py-4 text-sm font-medium leading-5 bg-white md:items-center md:flex-row sm:px-6">
                     <div class="flex items-center">
-                        <div class="hidden w-4 mr-6 text-base text-center sm:block">
+                        <div class="hidden w-8 mr-6 text-base text-center sm:block">
                             {{ $key+1 }}
                         </div>
-                        <div class="truncate">
-                            {{ $user->name }} - <span class="opacity-60">{{ $user->email }}</span>
-                            
+                        <div class="text-gray-800 truncate">
+                            {{ $user->name }} - {{ $user->email }}<br>
+                            <span class="text-gray-500">
+                                <span class="hidden text-gray-400 md:inline-block">Vytvořeno:</span> 
+                                {{ date("H:i d.m.Y", strtotime($user->created_at)) }}
+                            </span>
                         </div>
                     </div>
                     <div class="flex flex-col flex-shrink-0 sm:ml-2 sm:flex-row sm:items-center sm:space-x-4">
-                        <div class="mb-2 text-xs sm:text-right sm:mb-0 xs:text-sm">
-                            <span class="hidden opacity-60 md:inline-block">Vytvořeno:</span> {{ date("H:i d.m.Y", strtotime($user->created_at)) }}
-                        </div>
+                        <button type="button" wire:click="showUser({{ $user->id }})" class="transition duration-200 bg-blue-gray-100 text-blue-gray-500 hover:text-light-blue-500 btn">
+                            Upravit
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,5 @@
-<x-layout.page-title>
-    <h1>{{ __('eshop/settings.title') }}</h1>
-</x-layout.page-title>
+<div>
+    @section('title')
+        {{ __('eshop/settings.title') }}
+    @endsection
+</div>

@@ -1,7 +1,9 @@
-<div x-data="{openSettings: false, openEditor: false}">
-
+<div x-data="{openSettings: false, openEditor: false}"> 
+    @section('title')
+        {{ __('form.' . $parent . '-' . $method . '-title') }}
+    @endsection
     <x-layout.page-title>
-        <h1>{{ __('form.' . $parent . '-' . $method . '-title') }}</h1>
+        <div></div>
         <div class="flex space-x-3">
             <a href="{{ url($section . '/' . $parent . 's') }}" class="btn-transparent">
                 {{ __('form.btn-cancel') }}

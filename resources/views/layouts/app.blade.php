@@ -25,14 +25,34 @@
         @if(isset($fullscreen))
             {{ $slot }}
         @else
-            <div class="min-h-screen sm:flex sm:flex-row">
+            <div class="min-h-screen md:flex md:flex-row">
                 @if(!isset($hideSidebar))
-                    <x-layout.sidebar/>
+                    {{-- <x-layout.sidebar/> --}}
+                    <aside class="flex-none w-full bg-white md:w-64 md:min-h-screen" x-data="{ open: false }">
+                        <div class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-6 text-xl font-bold bg-white md:relative text-blue-gray-700">
+                            <div>
+                                {{ config('option.app_name', 'Webdo stránka') }}
+                            </div>
+                            <button class="md:hidden" type="button" @click="open = !open">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="fixed inset-0 z-40 pt-24 pb-6 mx-auto bg-black bg-opacity-50 md:relative md:py-0 md:bg-white" :class="{ 'hidden md:block': open == false }">
+                            @include('layouts.partials.navbar')
+                        </div>
+                    </aside>
                 @endif
                 <main class="w-full">
-                    {{-- <div class="flex items-center justify-between w-full max-w-5xl px-6 mx-auto my-10 sm:py-6">
-
-                    </div> --}}
+                    <div class="flex items-center justify-between px-6 py-3 mt-20 md:px-12 md:bg-gray-50 md:mt-0">
+                        <h1 class="py-2 text-xl text-blue-gray-900">
+                            @yield('title')
+                        </h1>
+                        <div class="hidden md:block">
+                            @include('layouts.partials.userpanel')
+                        </div>
+                    </div>
                     <div class="w-full max-w-5xl p-6 mx-auto">
                         {{ $slot }}
                     </div>

@@ -1,8 +1,7 @@
 <div>
-    <x-layout.page-title>
-        <h1>{{ __('eshop/dashboard.title') }}</h1>
-    </x-layout.page-title>
-    
+    @section('title')
+        {{ __('eshop/dashboard.title') }}
+    @endsection
     <div class="flex space-x-4">
         <div class="flex w-1/4 p-4 bg-white">
             <div class="relative text-light-blue-200">
