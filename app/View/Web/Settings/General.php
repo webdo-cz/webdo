@@ -32,6 +32,6 @@ class General extends Component
 
     public function render()
     {
-        return view('form.settings.information');
+        return view('web.settings.general');
     }
 }
