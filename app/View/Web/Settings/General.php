@@ -10,10 +10,15 @@ class General extends Component
     public $form;
 
     public function submit() {
-        $options = Option::where('group', null)->get();
         foreach($this->form as $key => $item) {
-            $options->where('name', $key)->first()
-                ->update(['value' => $item]);
+            Option::updateOrCreate(
+                [
+                    'name' => $key,
+                ],
+                [
+                    'value' => $item
+                ],
+            );
         }
 
         $flash = [
