@@ -21,7 +21,7 @@ class PageController extends Controller
             'meta_description', 
             'meta_keywords'
         ])->toArray();
-        $page['thumbnail'] = $thumbnail['full_path'];
+        $page['thumbnail'] = $thumbnail['full_path'] ?? '';
 
         $content = ContentResource::collection($state->toTree(null)->keyBy('name'));
 
