@@ -22,7 +22,7 @@ class ContentForm extends Component
     public $modal = [
         'id' => null,
         'type' => null,
-        'value' => false,
+        'value' => null,
     ];
 
     public $confirmClose = null;

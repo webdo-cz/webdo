@@ -38,6 +38,8 @@
         },
         initFilepond() {
             const pond = FilePond.create(this.$refs.filepond, {
+                allowPaste: false,
+                labelIdle: `Přesuňte obrázek nebo ho <span class='filepond--label-action'>nahrajte</span>.`,
                 onprocessfile: (error, file) => {
                     pond.removeFile(file.id)
                     if(pond.getFiles().length == 0) {
@@ -46,7 +48,11 @@
                 },
                 server: {
                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                        @this.upload('state.' + this.modal.id + '.upload.' + this.lang, file, load, error, progress)
+                        if(this.window == 'image') {
+                            @this.upload('state.' + this.modal.id + '.upload.' + this.lang, file, load, error, progress)
+                        }else {
+                            pond.removeFile(file.id)
+                        }
                     }
                 }
             });
@@ -127,7 +133,7 @@
                 ></textarea>
             </div>
             <div x-show="window == 'image'">
-                <input type="file" x-ref="filepond">
+                <input type="file" x-ref="filepond" accept="image/png, image/jpeg, image/gif">
             </div>
         </div>
     </div>

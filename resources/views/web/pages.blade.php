@@ -101,7 +101,7 @@
                                             @endif
                                         </div>
                                         <div wire:ignore class="w-full">
-                                            <input type="file" x-ref="filepond">
+                                            <input type="file" x-ref="filepond" accept="image/png, image/jpeg, image/gif">
                                         </div>
                                     </div>
                                 </div>
