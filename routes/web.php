@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/{section}/{parent}s/{method}/{uid?}', \App\View\Form\RecordForm::class);
  
     Route::get('invoice/generate/{id}', [\App\Http\Controllers\InvoiceController::class, 'generate']);
+
+    Route::get('xml/google-shoping', [\App\Http\Controllers\XmlController::class, 'googleShoping']);
+    Route::get('xml/zbozi-cz', [\App\Http\Controllers\XmlController::class, 'zboziCz']);
+    Route::get('xml/heureka', [\App\Http\Controllers\XmlController::class, 'heureka']);
+    Route::get('xml/glami', [\App\Http\Controllers\XmlController::class, 'glami']);
 });
 
 Route::get('invoice/show/{id}', [\App\Http\Controllers\InvoiceController::class, 'show']);
