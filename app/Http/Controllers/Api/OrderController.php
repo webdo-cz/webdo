@@ -24,9 +24,11 @@ class OrderController extends Controller
     public function fill(Request $request)
     {
         $cart = $request->input('cart');
-        $data = $request->input('order-data');
+        $data = $request->input('order');
 
         $this->fillOrderFields($cart['code'], $data);
+
+        $this->order->save();
         
         return [
             'status' => 'done'
@@ -36,7 +38,7 @@ class OrderController extends Controller
     public function submit(Request $request)
     {
         $cart= $request->input('cart');
-        $data = $request->input('data');
+        $data = $request->input('order');
 
         Validator::make($data, [
             'email' => 'required|email',
@@ -75,7 +77,18 @@ class OrderController extends Controller
             'products' => $items,
         ];
 
-        Mail::to($this->order->email)->send(new OrderSend($email));
+        try {
+
+            Mail::to($this->order->email)->send(new OrderSend($email));
+          
+        } catch (\Exception $e) {
+
+            $this->order->status = "waiting-for-packing";
+            $this->order->save();
+            
+        }
+
+        
         
         return [
             'status' => 'done'

@@ -16,6 +16,7 @@ class CartShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'thumbnail' => $this->product->files->where('type', 'thumbnail')->first()->full_path,
             'name' => $this->name,
             'price' => $this->variant->price_include_VAT,
             'quantity' => $this->quantity,

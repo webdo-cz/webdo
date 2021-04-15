@@ -20,10 +20,15 @@ class CartController extends Controller
             $order = Order::where('code', $request['code'])->firstOrFail();
             $cart = OrderItem::where('order_id', $order->id)->get();
 
-            $cart = CartShowResource::collection($cart);
-            $total = $order->total;
-
-            $cartStatus = 'step1';
+            if($cart->count() == 0){
+                $cart = "empty";
+                $total = null;
+                $cartStatus = 'step1';
+            }else {
+                $cart = CartShowResource::collection($cart);
+                $total = $order->total;
+                $cartStatus = 'step1';
+            }
         }else {
             $cart = "empty";
             $total = null;

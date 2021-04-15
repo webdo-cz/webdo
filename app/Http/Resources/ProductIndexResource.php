@@ -26,11 +26,28 @@ class ProductIndexResource extends JsonResource
         if($hover) {
             $hover = $hover->full_path;
         }
+
+        $availability = $this->variants->groupBy('availability');
+
+        if(isset($availability['Vyprodáno'])) {
+            if(isset($availability['Skladem'])) {
+                $label = '<span style="color: #10b981; padding-right: 0.25rem;">Skladem</span> ';
+                foreach($availability['Skladem'] as $variant) {
+                    $label .= $variant->name . ", ";
+                }
+                $label = rtrim($label, ", ");
+            }else {
+                $label = '<span style="color: #dc2625">Vyprodáno</span>';
+            }
+        }else {
+            $label = '<span style="color: #10b981; padding-right: 0.25rem;">Skladem</span> ' . $availability['Skladem']->first()->name . " - " . $availability['Skladem']->last()->name;
+        }
         return [
             'title' => $this->title,
             'teaser' => $this->teaser,
             'slug' => $this->slug,
             'price' => $price,
+            'availability' => $label,
             'thumbnail' => [
                 'static' => $static,
                 'hover' => $hover,
