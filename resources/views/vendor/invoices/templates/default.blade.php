@@ -16,95 +16,75 @@
                 margin: 36pt;
                 margin-top: 0pt;
             }
-
             h4 {
                 margin-top: 0;
                 margin-bottom: 0.5rem;
             }
-
             p {
                 margin-top: 0;
                 margin-bottom: 0.5rem;
             }
-
             strong {
                 font-weight: bolder;
             }
-
             img {
                 vertical-align: middle;
                 border-style: none;
             }
-
             table {
                 border-collapse: collapse;
             }
-
             th {
                 text-align: inherit;
             }
-
             h4, .h4 {
                 margin-bottom: 0.5rem;
                 font-weight: 500;
                 line-height: 1.2;
             }
-
             h4, .h4 {
                 font-size: 1rem;
             }
-
             .table {
                 width: 100%;
                 margin-bottom: 1rem;
                 color: #212529;
             }
-
             .table th {
                 vertical-align: top;
             }
-
             .table td {
                 vertical-align: top;
                 padding-top: 4px;
             }
-
             .table thead th {
                 vertical-align: bottom;
                 border-bottom: 1px solid #000;
                 padding-bottom: 4px;
             }
-
             .table tbody + tbody {
                 border-top: 2px solid #dee2e6;
             }
-
             .mt-5 {
                 margin-top: 3rem !important;
             }
-
             .pt-10 {
                 padding-top: 6rem;
             }
-
             .pr-0,
             .px-0 {
                 padding-right: 0 !important;
             }
-
             .pl-0,
             .px-0 {
                 padding-left: 0 !important;
             }
-
             .text-right {
                 text-align: right !important;
             }
-
             .text-center {
                 text-align: center !important;
             }
-
             .text-uppercase {
                 text-transform: uppercase !important;
             }
@@ -193,13 +173,11 @@
                     <strong>{{ $invoice->buyer->name }}</strong>
                 </p>
             @endif
-
             @if($invoice->buyer->address)
                 <p class="buyer-address">
                     {{ $invoice->buyer->address }}
                 </p>
             @endif
-
             @foreach($invoice->buyer->custom_fields as $key => $value)
                 <p class="buyer-custom-field">
                     {{ $value }}

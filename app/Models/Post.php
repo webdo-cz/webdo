@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use HasTranslations;
+
     public $incrementing = false;
+
+    public $translatable = ['title','teaser','body','slug','page_title','meta_title','meta_description','meta_keywords'];
 
     public function user()
     {
@@ -23,9 +28,24 @@ class Post extends Model
         return $this->hasMany('App\Models\File')->orderBy('created_at', 'desc');
     }
 
+    public function contentVersions()
+    {
+        return $this->hasMany('App\Models\ContentVersion', 'post_id');
+    }
+
+    public function variant()
+    {
+        return $this->hasOne('App\Models\Eshop\ProductVariant', 'product_id')->where('name', 'one-variant');
+    }
+
     public function variants()
     {
-        return $this->hasMany('App\Models\Eshop\Variant', 'product_id');
+        return $this->hasMany('App\Models\Eshop\ProductVariant', 'product_id')->where('name', '!=', 'one-variant');
+    }
+
+    public function children()
+    {
+        return $this->belongsToMany('App\Models\Post', 'post_relations', 'parent_post_id', 'child_post_id');
     }
 
     // public function thumbnail()

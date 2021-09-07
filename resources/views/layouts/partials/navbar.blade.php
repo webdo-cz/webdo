@@ -1,6 +1,6 @@
 <div
     x-data="{
-        section: '{{ explode('/',$_SERVER['REQUEST_URI'])[1] ?? 'web' }}',
+        section: '{{ (explode('/', $_SERVER['REQUEST_URI'])[1] ?? 'web') == 'eshop' ? 'eshop' : 'web' }}',
     }"
     class="z-50 max-h-full px-8 py-6 mx-auto overflow-y-scroll bg-white rounded-lg md:overflow-y-hidden md:rounded-none md:px-0 w-72 md:w-auto"
 ">

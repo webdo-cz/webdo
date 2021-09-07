@@ -11,7 +11,7 @@ class Content extends Model
     use HasTranslations;
     use NodeTrait;
 
-    protected $table = "content";
+    //protected $table = "content";
     
     protected $fillable = [
         'name',
@@ -20,6 +20,7 @@ class Content extends Model
         'page',
         'type',
         'parent_id',
+        'version_id',
         'order',
         'status',
     ]; 

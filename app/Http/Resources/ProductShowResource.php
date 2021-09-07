@@ -16,11 +16,16 @@ class ProductShowResource extends ProductIndexResource
      */
     public function toArray($request)
     {
-        return array_merge(parent::toArray($request), [
+        if($this->variant) {
+            $variants = [ 'variant' =>  new ProductVariantResource($this->variant)];
+        }else {
+            $variants = [ 'variants' => ProductVariantResource::collection($this->variants)];
+        }
+        return array_merge(parent::toArray($request), array_merge([
             'id' => $this->id,
             'body' => $this->body,
             'gallery' => PostGalleryResource::collection($this->files->where('type', 'gallery')),
-            'variants' => ProductVariantResource::collection($this->variants),
-        ]);
+            'children' => ProductChildrenResource::collection($this->children),
+        ], $variants));
     }
 }

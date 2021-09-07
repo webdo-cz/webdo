@@ -17,9 +17,10 @@ class ProductVariantResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'price' => $this->price_include_VAT,
+            'price' => $this->price,
+            'price_label' => config('request_locale')['currency_label'],
             'availability' => $this->availability,
-            'VAT' => $this->VAT_label,
+            'VAT' => $this->VAT,
         ];
     }
 }

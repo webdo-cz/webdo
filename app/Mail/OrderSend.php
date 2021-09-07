@@ -34,7 +34,7 @@ class OrderSend extends Mailable
      */
     public function build()
     {
-        return $this->view('email.order-send', ['email' => $this->email])
+        return $this->view('mail.order-send', ['email' => $this->email])
             ->from("noreply@petrolwear.cz", "PetrolWear")
             ->cc("noreply@petrolwear.cz", "PetrolWear")
             ->bcc("noreply@petrolwear.cz", "PetrolWear")

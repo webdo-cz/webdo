@@ -1,8 +1,10 @@
-@props(['inputId' => rand(1111111, 9999999), 'name', 'label', 'type' => 'text', 'startLabel' => null, 'endLabel' => null])
+@props(['inputId' => rand(1111111, 9999999), 'name', 'label' => null, 'size' => 'sm', 'type' => 'text', 'startLabel' => null, 'endLabel' => null])
 <div class="w-full text-sm">
-    <label for="{{ $inputId }}" class="pl-2 text-blue-gray-500">
-        {{ $label }} @error($name) - <span class="font-normal text-red-500">{{ $message }}</span> @enderror
-    </label>
+    @if($label)
+        <label for="{{ $inputId }}" class="pl-2 text-blue-gray-500">
+            {{ $label }} @error($name) - <span class="font-normal text-red-500">{{ $message }}</span> @enderror
+        </label>
+    @endif
     <div class="relative mt-1">
         @if ($startLabel)
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -17,7 +19,7 @@
             name="{{ $name }}" 
             type="{{ $type }}" 
             {!! $attributes !!} 
-            class="w-full px-4 py-2 bg-white border-2 rounded-lg form focus:outline-none border-blue-gray-300  @error($name) border-red-300 @enderror" 
+            class="w-full {{ $size == 'lg' ? 'px-6 py-3' : 'px-4 py-2' }} bg-white border rounded-lg form focus:outline-none border-gray-300  @error($name) border-red-300 @enderror" 
         />
 
         @if ($endLabel)

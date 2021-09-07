@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\Post;
 use App\Models\Eshop\Order;
 use App\Models\Eshop\OrderItem;
-//use App\Models\Eshop\Variant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,7 +26,9 @@ class CartItemController extends Controller
         $item = $this->request->input('item');
         $order = $this->order;
 
-        $orderItem = OrderItem::where('order_id', $order->id)->where('product_id', $item['product'])->where('variant_id', $item['variant']);
+        $orderItem = OrderItem::where('order_id', $order->id)
+        ->where('product_id', $item['product'])
+        ->where('variant_id', $item['variant']);
 
         if($orderItem->exists()) {
             $orderItem = $orderItem->first();
@@ -36,7 +37,10 @@ class CartItemController extends Controller
         }else {
             $details = Post::find($item['product']);
             $orderItem = new OrderItem;
-            $orderItem->name = $details->title . " - " . $details->variants->find($item['variant'])->name;
+            $orderItem->name = $details->title;
+            if(!$details->variant) {
+                $orderItem->name = $details->title . " - " . $details->variants->find($item['variant'])->name;
+            }      
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $item['product'];
             $orderItem->variant_id = $item['variant'];
@@ -51,14 +55,14 @@ class CartItemController extends Controller
             
             $total = 0;
             foreach($items as $item) {
-                $total = $total + ($item->variant->price_include_VAT * $item->quantity);
+                $total = $total + ($item->variant->price * $item->quantity);
             }
 
             $order->total = $total;
             $order->save();
             $count = $items->count();
         }else {
-            $order->total = $orderItem->variant->price_include_VAT * $orderItem->quantity;
+            $order->total = $orderItem->variant->price * $orderItem->quantity;
             $order->save();
             $count = 1;
         }
@@ -89,7 +93,7 @@ class CartItemController extends Controller
             
         $total = 0;
         foreach($items as $item) {
-            $total = $total + ($item->variant->price_include_VAT * $item->quantity);
+            $total = $total + ($item->variant->price * $item->quantity);
         }
 
         $order->total = $total;
@@ -115,7 +119,7 @@ class CartItemController extends Controller
             
         $total = 0;
         foreach($items as $item) {
-            $total = $total + ($item->variant->price_include_VAT * $item->quantity);
+            $total = $total + ($item->variant->price * $item->quantity);
         }
 
         $order->total = $total;

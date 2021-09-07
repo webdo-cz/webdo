@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Option;
+use App\Models\Locale;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,6 +39,11 @@ class ConfigServiceProvider extends ServiceProvider
                 ->toArray();
             $options = array_merge_recursive($base, $groups);
             config()->set(['option' => $options]);
+
+            if(config('option.multilocale')) {
+                $locales = Locale::where('active', true)->get()->keyBy('name')->toArray();
+                config()->set(['locales' => $locales]);
+            }
         }
     }
 }

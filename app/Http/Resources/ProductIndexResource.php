@@ -14,43 +14,44 @@ class ProductIndexResource extends JsonResource
      */
     public function toArray($request)
     {
-        $price = null;
-        $static = $this->files->where('type', 'thumbnail')->first();
-        $hover = $this->files->where('type', 'hover-thumbnail')->first();
-        if(isset($this->variants->first()->price_include_VAT)) {
-            $price = $this->variants->first()->price_include_VAT;
-        }
-        if($static) {
-            $static = $static->full_path;
-        }
-        if($hover) {
-            $hover = $hover->full_path;
-        }
-
-        $availability = $this->variants->groupBy('availability');
-
-        if(isset($availability['Vyprodáno'])) {
-            if(isset($availability['Skladem'])) {
-                $label = '<span style="color: #10b981; padding-right: 0.25rem;">Skladem</span> ';
-                foreach($availability['Skladem'] as $variant) {
-                    $label .= $variant->name . ", ";
-                }
-                $label = rtrim($label, ", ");
-            }else {
-                $label = '<span style="color: #dc2625">Vyprodáno</span>';
+        if($this->variant){
+            $price = $this->variant->price;
+            if(config('request_locale')['currency_label']['default'] != true){
+                
+                //$this->variant->currency->where('')
             }
-        }else {
-            $label = '<span style="color: #10b981; padding-right: 0.25rem;">Skladem</span> ' . $availability['Skladem']->first()->name . " - " . $availability['Skladem']->last()->name;
+
+            $label = $this->variant->availability;
+        }elseif($this->variants->first()) {
+            $price = $this->variants->first()->price;
+
+            $label = $this->variants->first()->availability;
+            if($this->variants->count() > 1){
+                $availability = $this->variants->groupBy('availability');
+                if(isset($availability['Skladem'])) {
+                    if(count($availability) == 1) {
+                        $label = 'Skladem: ' . $availability['Skladem']->first()->name . " - " . $availability['Skladem']->last()->name;
+                    }else {
+                        $label = 'Skladem: ';
+                        foreach($availability['Skladem'] as $variant) {
+                            $label .= $variant->name . ", ";
+                        }
+                        $label = rtrim($label, ", ");
+                    }
+                }
+            }
         }
+
         return [
             'title' => $this->title,
             'teaser' => $this->teaser,
             'slug' => $this->slug,
-            'price' => $price,
-            'availability' => $label,
+            'price' => $price ?? null,
+            'price_label' => config('request_locale')['currency_label'],
+            'availability' => $label ?? null,
             'thumbnail' => [
-                'static' => $static,
-                'hover' => $hover,
+                'static' => $this->files->where('type', 'thumbnail')->first()->full_path ?? null,
+                'hover' => $this->files->where('type', 'hover-thumbnail')->first()->full_path ?? null,
             ]
         ];
     }

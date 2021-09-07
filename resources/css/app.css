@@ -71,6 +71,10 @@
     display: block;
 }
 
+.edit-pannel {
+    height: calc(100vh - 81px);
+}
+
 .flatpickr-calendar {
     -webkit-box-shadow: 0 0 0;
     box-shadow: 0 0 0;
@@ -127,20 +131,33 @@
     padding: 3px;
 }
 
+.ql-container {
+    font-size: 14px !important;
+}
+
 .ql-toolbar.ql-snow {
-    background: #fff;
-    border-radius: 8px;
+    background: #f9fafb;
     border: 0;
+    border-radius: 8px 8px 0 0;
+    border-top: 1px solid #d1d5db;
+    border-left: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+    padding: 12px;
 }
+
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
-    border-top: 2px solid #cbd5e1;
+    border-top: 1px solid #d1d5db;
 }
+
 .ql-container.ql-snow {
     background: #fff;
-    margin-top: 8px;
-    border: 2px solid #cbd5e1;
-    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 0 0 8px 8px;
     height: 16rem;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+    margin-right: 3px;
 }
 
 .filepond--drop-label, .filepond--panel-root {

@@ -39,7 +39,10 @@ class InvoiceController extends Controller
             ->filename($fileName);
 
         foreach($cart as $item) {
-            $item = (new InvoiceItem())->title($item->name)->pricePerUnit($item->variant->price_include_VAT)->quantity($item->quantity);
+            $item = (new InvoiceItem())
+                ->title($item->name)
+                ->pricePerUnit($item->variant->price)
+                ->quantity($item->quantity);
             $invoicePdf = $invoicePdf->addItem($item);
         }
 

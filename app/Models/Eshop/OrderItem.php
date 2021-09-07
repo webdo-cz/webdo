@@ -16,6 +16,6 @@ class OrderItem extends Model
 
     public function variant()
     {
-        return $this->belongsTo('App\Models\Eshop\Variant', 'variant_id');
+        return $this->belongsTo('App\Models\Eshop\ProductVariant', 'variant_id');
     }
 }

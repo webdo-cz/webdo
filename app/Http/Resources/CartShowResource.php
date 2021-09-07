@@ -16,11 +16,11 @@ class CartShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'thumbnail' => $this->product->files->where('type', 'thumbnail')->first()->full_path,
+            'thumbnail' => $this->product->files->where('type', 'thumbnail')->first()->full_path ?? null,
             'name' => $this->name,
-            'price' => $this->variant->price_include_VAT,
+            'price' => $this->variant->price,
             'quantity' => $this->quantity,
-            'total' => $this->quantity * $this->variant->price_include_VAT,
+            'total' => $this->quantity * $this->variant->price,
         ];
     }
 }

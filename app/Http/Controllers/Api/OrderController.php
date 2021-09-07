@@ -65,7 +65,7 @@ class OrderController extends Controller
         $items = OrderItem::where('order_id', $this->order->id)->get();
         $total = 0;
         foreach($items as $item) {
-            $total = $total + ($item->variant->price_include_VAT * $item->quantity);
+            $total = $total + ($item->variant->price * $item->quantity);
         }
         $total = $total + $this->order->payment->price + $this->order->shipment->price;
         $this->order->total = $total;
@@ -83,13 +83,11 @@ class OrderController extends Controller
           
         } catch (\Exception $e) {
 
-            $this->order->status = "waiting-for-packing";
+            $this->order->status = "email-send-fail";
             $this->order->save();
             
         }
 
-        
-        
         return [
             'status' => 'done'
         ];

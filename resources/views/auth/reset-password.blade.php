@@ -1,64 +1,36 @@
-<div>
-    <h1 class="ml-6 text-2xl font-bold">{{ __('auth.reset-password') }}</h1>
-    <div class="w-full px-6 py-8 mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
-        @if (session('status'))
-            <div class="mb-4 text-sm font-medium text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
+<x-guest-layout>
+    <x-jet-authentication-card>
+        <x-slot name="logo">
+            <x-jet-authentication-card-logo />
+        </x-slot>
 
-        @if ($errors->any())
-            <div class="mb-4">
-                <div class="font-medium text-red-600">
-                    {{ __('Whoops! Something went wrong.') }}
-                </div>
-
-                <ul class="mt-3 text-sm text-red-600 list-disc list-inside">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        
+        <x-jet-validation-errors class="mb-4" />
 
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 
-            <!-- Email Address -->
-            <div>
-                <x-input label="{{ __('auth.email') }}" id="email" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input label="{{ __('auth.password') }}" name="password" type="password" required autocomplete="current-password" />
-            </div>
-
-            <!-- Password Reset Token -->
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
-            <div>
-                <x-input label="{{ __('auth.email') }}" id="email" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+            <div class="block">
+                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
             </div>
 
-            <!-- Password -->
             <div class="mt-4">
-                <x-input label="{{ __('auth.password') }}" name="password" type="password" required autocomplete="password" />
+                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
-            <!-- Password -->
             <div class="mt-4">
-                <x-input label="{{ __('auth.password-confirmation') }}" name="password_confirmation" type="password" required autocomplete="password_confirmation" />
+                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="ml-3 btn-primary">
-                    {{ __('auth.reset-password') }}
-                </button>
+                <x-jet-button>
+                    {{ __('Reset Password') }}
+                </x-jet-button>
             </div>
         </form>
-    </div>
-</div>
+    </x-jet-authentication-card>
+</x-guest-layout>

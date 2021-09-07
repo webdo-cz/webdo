@@ -41,34 +41,5 @@ class CartController extends Controller
             'total' => $total,
             'cartStatus' => $cartStatus,
         ];
-        
-        // if(isset($requestCart['uid'])) {
-        //     $cart = EshopCart::where('uid', $requestCart['uid'])->firstOrFail();
-        //     $rawItems = EshopCartEshopStock::where('cart_id', $cart->id)->get();
-    
-        //     $items = [];
-        //     foreach($rawItems as $item) {
-        //         $record = [
-        //             'item_id' => $item->variant->id,
-        //             'product_name' => $item->variant->product_name,
-        //             'variant_name' => $item->variant->name,
-        //             'price' => $item->variant->price_include_VAT,
-        //             'quantity' => $item->quantity,
-        //             'total' => $item->variant->price_include_VAT * $item->quantity,
-        //         ];
-        //         array_push($items, $record);
-        //     }
-    
-        //     $data = [
-        //         'cart_total' => $cart->total_price,
-        //         'cart' => $items,
-        //     ];
-        // }else {
-        //     $data = [
-        //         'cart_total' => null,
-        //         'cart' => 'empty',
-        //     ];
-        // }
-         return $data;
     }
 }
