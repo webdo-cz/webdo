@@ -27,6 +27,7 @@ class CreateEshopOrdersTable extends Migration
             $table->string('status');
             $table->boolean('cart')->default(true);
             $table->boolean('canceled')->default(false);
+            $table->timestamp('submited_at')->nullable();
             $table->timestamps();
 
             $table->foreign('shipment_id')->references('id')->on('eshop_shipments');

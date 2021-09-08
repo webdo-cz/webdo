@@ -19,6 +19,7 @@ class CreateLocalesTable extends Migration
             $table->string('label')->nullable();
             $table->string('lang')->nullable();
             $table->string('currency')->nullable();
+            $table->string('currency_label')->nullable();
             $table->boolean('default')->default(false);
             $table->boolean('active')->default(false);
             $table->timestamps();

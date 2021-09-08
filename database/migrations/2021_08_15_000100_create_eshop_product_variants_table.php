@@ -17,8 +17,9 @@ class CreateEshopProductVariantsTable extends Migration
             $table->id();
             $table->string('name');
             $table->double('price', 15, 2);
-            $table->double('price_include_VAT', 15, 2)->nullable();
-            $table->string('VAT_rate')->nullable();
+            $table->double('price_without_VAT', 15, 2)->nullable();
+            $table->double('buy_price', 15, 2)->nullable();
+            $table->string('VAT')->nullable();
             $table->string('weight')->nullable();
             $table->string('availability')->nullable();
             $table->string('availability_empty')->nullable();
