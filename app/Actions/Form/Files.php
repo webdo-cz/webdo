@@ -56,7 +56,7 @@ trait Files
 
     public function deleteFile($file)
     {
-        unlink(storage_path('app/public/' . $file['path']));
+        @unlink(storage_path('app/public/' . $file['path']));
         File::find($file['id'])->delete();
     }
 }
