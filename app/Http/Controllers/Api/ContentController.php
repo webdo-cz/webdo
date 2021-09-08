@@ -22,7 +22,7 @@ class ContentController extends Controller
     public $return = []; 
     public function handle(Request $request) {
         $options = json_decode($request->getContent(), true);
-        $locale = config('locales')[$options['locale'] ?? Locale::where('default', true)->value('name')];
+        $locale = config('locales')[$options['locale'] ?? Locale::where('default', true)->value('name')] ?? ['name' => 'czech', 'label' => 'czech', 'lang' => 'cs', 'currency' => 'Kč', 'currency_label' => 'Kč'];
         config()->set([
             'request_locale' => $locale,
         ]);
