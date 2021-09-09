@@ -195,7 +195,7 @@
                         <x-input wire:model.defer="packageDetails.weight" name="weight" endLabel="Kg"></x-input>
                     </div>
                 </div>
-                <button wire:click="submitPackageZasilkovna" type="button" class="flex px-4 py-2 mt-6 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 rounded-xl">
+                <button @click="modalSubmitPackage = false" wire:click="submitPackageZasilkovna" type="button" class="flex px-4 py-2 mt-6 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 rounded-xl">
                     Podat zásilku
                 </button>
             </x-modal>
