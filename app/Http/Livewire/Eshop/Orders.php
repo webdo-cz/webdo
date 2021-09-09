@@ -16,6 +16,7 @@ class Orders extends Component
     use WithPagination;
 
     public $order;
+    public $packageDetails = [];
     public $cart;
     public $statuses = [
         'canceled',
@@ -50,7 +51,8 @@ class Orders extends Component
                 'city' => $this->order->address['delivery']->city ?? $this->order->address['order']->city,
                 'zip' => $this->order->address['delivery']->post_code ?? $this->order->address['order']->post_code,
                 'cod' => $this->order->payment->name == 'on-delivery' ? $this->order->total : 0,
-                'value' => $this->order->total
+                'value' => $this->order->total,
+                'weight' => $this->packageDetails['weight'],
             ));
         }
         catch(SoapFault $e) {
@@ -59,7 +61,7 @@ class Orders extends Component
                 'message' => 'Nepodařilo se podat zásilku, můžete to udělat ručně.',
             ], $this);
         }
-
+        $this->order->weight = $this->packageDetails['weight'];
         $this->order->status = 'packing';
         $this->order->save();
         $this->status = array_search('packing', $this->statuses);
@@ -81,6 +83,8 @@ class Orders extends Component
         $this->order = Order::find($id);
         $this->cart = OrderItem::where('order_id', $this->order->id)->get();
         $this->status = array_search($this->order->status, $this->statuses);
+    
+        $this->packageDetails['weight'] = $this->order->weight;
     }
 
     public function closeOrder()

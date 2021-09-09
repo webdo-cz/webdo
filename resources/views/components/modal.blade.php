@@ -1,4 +1,4 @@
-@props(['alpineVar' => null, 'wire' => null, 'wireClose' => null, 'title' => null, 'header' => null, 'footer' => null])
+@props(['alpineVar' => null, 'wire' => null, 'wireClose' => null, 'size' => 'lg', 'title' => null, 'header' => null, 'footer' => null])
 
 <div 
     @if($alpineVar) x-show="{{ $alpineVar }}" @click="{{ $alpineVar }} = false" @endif
@@ -7,7 +7,7 @@
 ></div>
 <div @if($alpineVar) x-show="{{ $alpineVar }}" @endif class="fixed inset-0 z-50 flex flex-col items-center justify-around">
     <div @closemodal.window="{{ $alpineVar }} = false" ></div>
-    <div class="flex flex-col w-full max-w-3xl bg-gray-100 shadow-lg rounded-xl">
+    <div class="flex flex-col w-full {{ $size == 'lg' ? 'max-w-3xl' : 'max-w-xl' }} bg-gray-100 shadow-lg rounded-xl">
         @if($header)
             <div class="flex items-center justify-between px-6 py-6 text-white bg-gray-800 shadow-sm sm:px-9 rounded-t-xl">
                 <div>
