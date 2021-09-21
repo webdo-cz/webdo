@@ -6,12 +6,12 @@
 ">
     @if(config('option.module_eshop') == 'true')
     <div class="flex justify-center mb-4">
-        <nav class="flex text-xs font-bold rounded-full bg-blue-gray-100 text-blue-gray-500">
+        <nav class="flex text-xs font-bold rounded-lg bg-blue-gray-100 text-blue-gray-500">
             <span
                 @click="section = 'web'"
-                class="flex items-center w-full px-6 py-3 -ml-px cursor-pointer"
+                class="flex items-center w-full px-5 py-2.5 -ml-px cursor-pointer"
                 :class="{ 
-                    'bg-light-blue-200 text-light-blue-500 rounded-full': section == 'web', 
+                    'bg-light-blue-500 text-white rounded-lg': section == 'web', 
                     'hover:text-blue-gray-700 -mr-2': section != 'web' 
                 }"
             >
@@ -19,9 +19,9 @@
             </span>
             <span
                 @click="section = 'eshop'"
-                class="flex items-center w-full px-6 py-3 -mr-px cursor-pointer"
+                class="flex items-center w-full px-5 py-2.5 -mr-px cursor-pointer"
                 :class="{ 
-                    'bg-light-blue-200 text-light-blue-500 rounded-full': section == 'eshop', 
+                    'bg-light-blue-500 text-white rounded-lg': section == 'eshop', 
                     'hover:text-blue-gray-700 -ml-2': section != 'eshop' 
                 }"
             >
@@ -80,6 +80,14 @@
         @if(config('option.module_pages') == 'true')
         <x-layout.nav-item url="web/pages" name="{{ __('layout.navbar.web-pages') }}">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+            </svg>
+            
+        </x-layout.nav-item>
+        @endif
+        @if(config('option.module_subpages') == 'true')
+        <x-layout.nav-item url="web/subpages" name="{{ __('layout.navbar.web-subpages') }}">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
             </svg>
             
@@ -89,6 +97,14 @@
         <x-layout.nav-item url="web/events" name="{{ __('layout.navbar.web-events') }}">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            
+        </x-layout.nav-item>
+        @endif
+        @if(config('option.module_contacts') == 'true')
+        <x-layout.nav-item url="web/contacts" name="{{ __('layout.navbar.web-contacts') }}">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
             </svg>
             
         </x-layout.nav-item>
