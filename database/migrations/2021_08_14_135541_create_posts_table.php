@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->string('id')->primary();
             $table->string('type', 255)->nullable();
             $table->string('title', 255)->nullable();
-            $table->string('teaser', 255)->nullable();
+            $table->longText('teaser')->nullable();;
             $table->longText('body')->nullable();
             $table->string('slug', 255)->nullable();
             $table->string('page_title', 255)->nullable();

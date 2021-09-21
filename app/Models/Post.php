@@ -11,7 +11,7 @@ class Post extends Model
 
     public $incrementing = false;
 
-    public $translatable = ['title','teaser','body','slug','page_title','meta_title','meta_description','meta_keywords'];
+    public $translatable = ['title','teaser','body','slug','page_title','seo_title','seo_description','seo_keywords'];
 
     public function user()
     {

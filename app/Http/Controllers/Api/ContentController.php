@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Post;
 use App\Models\Term;
 use App\Models\Locale;
+use App\Http\Resources\ArticleIndexResource;
+use App\Http\Resources\ArticleShowResource;
 use App\Http\Resources\ProductIndexResource;
 use App\Http\Resources\ProductShowResource;
 use App\Models\Content;
@@ -14,6 +16,7 @@ use App\Models\Eshop\OrderItem;
 use App\Models\Eshop\Shipment;
 use App\Models\Eshop\Payment;
 use App\Http\Resources\CartShowResource;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -46,7 +49,46 @@ class ContentController extends Controller
             $this->getCart($options['cart']);
         }
 
+        if(isset($options['articles'])) {
+            $this->getArticles($options['articles']);
+        }
+
+        if(isset($options['article'])) {
+            $this->getArticle($options['article']);
+        }
+
         return $this->return;
+    }
+
+    public function getArticles($options) {
+        if(isset($options['page'])){
+            Paginator::currentPageResolver(fn() => $options['page']);
+        }
+        $data = Post::where('type', 'article')->orderBy('published_at', 'desc')->paginate($options['limit']);
+        $articles = [];
+        $articles['pagination'] = [
+            'total' => $data->total(),
+            'per_page' => $data->perPage(),
+            'current_page' => $data->currentPage()
+        ];
+        $articles['data'] = ArticleIndexResource::collection($data);
+        return $this->return['articles'] = $articles;
+    }
+
+    public function getArticle($slug) {
+        $article = Post::where('slug', 'LIKE', '%' . $slug . '%')->first()->setLocale('cs');
+
+        if(!$article) {
+            return $this->return['article'] = null;
+        }
+
+        $this->return['meta'] = [
+            'page_title' => $article->page_title ? $article->page_title : $article->title,
+            'seo_title' => $article->seo_title ? $article->page_title : $article->title,  
+            'seo_description' => $article->seo_description, 
+            'seo_keywords' => $article->seo_keywords
+        ];
+        $this->return['article'] = new ArticleShowResource($article);
     }
 
     public function getCart($code) {
