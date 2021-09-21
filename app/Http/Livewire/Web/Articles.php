@@ -8,15 +8,9 @@ use Livewire\Component;
 
 class Articles extends Component
 {
-    public $articles;
-
-    public function mount()
-    {
-        $this->articles = Post::where('type', 'article')->orderBy('created_at', 'desc')->get();
-    }
-
     public function render()
     {
-        return view('livewire.web.articles');
+        $articles = Post::where('type', 'article')->orderBy('created_at', 'desc')->paginate(25);
+        return view('livewire.web.articles')->with('articles', $articles);
     }
 }
