@@ -21,6 +21,8 @@ trait Files
         Image::make($image)->encode('jpg', 75)->save($storagePath . $path);
 
         if($storeRecord) $this->storeFile($path, $type, $fileType);
+
+        return $path;
     }
 
     public function saveFile($file, $type, $fileType, $storeRecord, $number = 0)

@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\Eshop\ProductVariant;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\DomCrawler\Crawler;
 use Auth;
 
 trait Submit
@@ -20,6 +21,10 @@ trait Submit
 
         if($this->state['custom_teaser']) {
             $this->state['teaser'] = $this->teaser;
+        }else {
+            foreach($this->state['body'] as $lang => $body) {
+                $this->state['teaser'][$lang] = substr(strip_tags(str_replace('<br>', ' ', $body)), 0, 200);
+            }
         }
 
         if($this->method == 'edit') {
@@ -49,6 +54,22 @@ trait Submit
 
         if($this->method == "create") {
             $record->user_id = Auth::id();
+        }
+
+        $dom = new Crawler($record->body);
+        $images = $dom->filterXPath('//img')->extract(['src']); 
+         
+        foreach ($images as $key => $image) {
+            if (strpos($image, 'base64') !== false) {
+                $file = explode(',', $image);
+                $savedBodyImage = $this->saveImage(base64_decode($file[1]), 'post-body', 'image', true);
+                $record->body = str_replace($image, asset('storage/' . $savedBodyImage), $record->body);
+            }else {
+                if(!str_contains($image, env('APP_URL'))) {
+                    $savedBodyImage = $this->saveImage($image, 'post-body', 'image', true);
+                    $record->body = str_replace($image, asset('storage/' . $savedBodyImage), $record->body);
+                }
+            }
         }
 
         $record->save();
