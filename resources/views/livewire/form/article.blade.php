@@ -59,6 +59,7 @@
                     tab: 'gallery',
                     initFilepond() {
                         const pond = FilePond.create(this.$refs.filepond, {
+                            allowPaste: false,
                             labelIdle: `<span class='font-medium underline cursor-pointer filepond--label-action'>Vyberte</span> nebo přetáhněte obrázek`,
                             onprocessfile: (error, file) => {
                                 pond.removeFile(file.id)
