@@ -18,6 +18,7 @@
         "laraveldaily/laravel-invoices": "^2.0",
         "livewire/livewire": "^2.4",
         "spatie/laravel-translatable": "^4.6",
+        "symfony/dom-crawler": "^5.3",
         "webdo-cz/tall-flash": "9999999-dev"
     },
     "require-dev": {
