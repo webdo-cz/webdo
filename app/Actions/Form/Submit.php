@@ -19,6 +19,8 @@ trait Submit
             'body' => 'required',
         ])->validate();
 
+        $this->state['teaser'] = [];
+
         if($this->state['custom_teaser']) {
             $this->state['teaser'] = $this->teaser;
         }else {
