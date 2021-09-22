@@ -16,9 +16,15 @@ trait Files
             mkdir($storagePath . $this->state['id'] . '/images/', 0777, true);
         }
 
-        $path = $this->state['id'] . '/images/' . $number . str_shuffle(date("jmi")) . substr($this->type, 0, 2) . strtoupper(substr($type, 0, 3)) . Str::random(6) . '.jpg';
+        $extenstion = 'jpg';
 
-        Image::make($image)->encode('jpg', 75)->save($storagePath . $path);
+        if(is_string($image) && (pathinfo($image)['extension'] == 'png')) {
+            $extenstion = 'png';
+        }
+
+        $path = $this->state['id'] . '/images/' . $number . str_shuffle(date("jmi")) . substr($this->type, 0, 2) . strtoupper(substr($type, 0, 3)) . Str::random(6) . '.' . $extenstion;
+
+        Image::make($image)->encode($extenstion, 75)->save($storagePath . $path);
 
         if($storeRecord) $this->storeFile($path, $type, $fileType);
 
