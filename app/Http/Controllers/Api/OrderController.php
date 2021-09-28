@@ -9,10 +9,13 @@ use App\Mail\OrderSend;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Actions\Integrations\Gopay\GeneratePayment;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    use GeneratePayment;
+
     private $order;
 
     public function __construct(Request $request)
@@ -70,6 +73,29 @@ class OrderController extends Controller
         $total = $total + $this->order->payment->price + $this->order->shipment->price;
         $this->order->total = $total;
         $this->order->payment_code = date('mdHi') . mt_rand(10, 99);
+
+        if($this->order->payment->name == 'banktransfer') {
+            $this->order->status = "waiting-for-payment";
+        }elseif($this->order->payment->name == 'gopay-platba-kartou') {
+            $params = [
+                'contact' => [
+                    'first_name' => $this->order->address['order']->name,
+                    'last_name' => $this->order->address['order']->surname,
+                    'email' => $this->order->email,
+                    'phone_number' => $this->order->telephone,
+                    'city' => $this->order->address['order']->city,
+                    'street' => $this->order->address['order']->street,
+                    'postal_code' => $this->order->address['order']->post_code,
+                    'country_code' => 'CZE'
+                ],
+                'total' => $this->order->total,
+                'payment_code' => $this->order->payment_code,
+            ];
+
+            $payment = $this->generate($params);
+            $this->order->status = "waiting-for-payment";
+        }
+
         $this->order->save();
 
         $email = [
@@ -89,7 +115,9 @@ class OrderController extends Controller
         }
 
         return [
-            'status' => 'done'
+            'status' => 'done',
+            'redirect' => $payment['url'] ?? null,
+            'payment_id' => $payment['id'] ?? null
         ];
     }
 

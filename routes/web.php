@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/eshop/orders', \App\Http\Livewire\Eshop\Orders::class);
     Route::get('/eshop/products', \App\Http\Livewire\Eshop\Products::class);
     Route::get('/eshop/carts', \App\Http\Livewire\Eshop\Carts::class);
+    Route::get('/eshop/settings/{page}', \App\Http\Livewire\Eshop\Settings::class);
 
     Route::get('/web/article/{method}/{uid?}', \App\Http\Livewire\Form\Article::class);
     Route::get('/web/subpage/{method}/{uid?}', \App\Http\Livewire\Form\Subpage::class);
